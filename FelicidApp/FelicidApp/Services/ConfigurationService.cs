@@ -1,9 +1,19 @@
-﻿using Windows.Storage;
+﻿using System.Collections.Generic;
+using Windows.Storage;
 
 namespace FelicidApp.Services
 {
     public static class ConfigurationService
     {
+        private static string _motion;
+        public static string Motion
+        {
+            get { return _motion ?? "Happiness"; }
+            set { _motion = value; }
+        }
+
+        public static List<string> Playlist { get; set; }
+
         public static string UserName
         {
             get

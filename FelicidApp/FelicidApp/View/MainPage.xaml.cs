@@ -5,6 +5,7 @@ using FelicidApp.View.Base;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.ProjectOxford.Emotion;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace FelicidApp.View
 {
     public sealed partial class MainPage : BasePage
     {
+        private static int _playingIndex = 0;
+
         public MainPage()
         {
             InitializeComponent();
@@ -33,7 +36,7 @@ namespace FelicidApp.View
         static string EmotionAPIKey = "1c08a603043a49e58303f90d5570e4df";
 
         MediaCapture mediaCapture;
-        DispatcherTimer dispatcherTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(10) };
+        DispatcherTimer dispatcherTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(2) };
         EmotionServiceClient emotionClient = new EmotionServiceClient(EmotionAPIKey);
     
 
@@ -54,6 +57,10 @@ namespace FelicidApp.View
                 } while (result != ContentDialogResult.Primary);
             }
 
+            MotionConfig.Text = ConfigurationService.Motion;
+            ConfigurationService.Playlist = await YoutubeService.GetYoutubeURI();
+            NavigateToList(0);
+
             UserName.Text = ConfigurationService.UserName;
             DeviceId.Text = ConfigurationService.DeviceId;
 
@@ -61,6 +68,17 @@ namespace FelicidApp.View
             GetEmotions(null, null);
             dispatcherTimer.Tick += GetEmotions;
             dispatcherTimer.Start();
+        }
+
+        private void NavigateToList(int i)
+        {
+            var list = ConfigurationService.Playlist.Skip(i).FirstOrDefault();
+
+            if (string.IsNullOrWhiteSpace(list)) return;
+
+            PlayInfo.Text = $"{i + 1} of {ConfigurationService.Playlist.Count}";
+            _playingIndex = i;
+            WebView.Navigate(new Uri(list));
         }
 
         uint width, height;
@@ -131,7 +149,7 @@ namespace FelicidApp.View
                                 var r = new Windows.UI.Xaml.Shapes.Rectangle();
                                 RectangleCanvas.Children.Add(r);
                                 r.Stroke = new SolidColorBrush(Windows.UI.Colors.Yellow);
-                                r.StrokeThickness = 5;
+                                r.StrokeThickness = 1;
                                 r.Width = emotion.FaceRectangle.Width * ratio;
                                 r.Height = emotion.FaceRectangle.Height * ratio;
                                 Canvas.SetLeft(r, (emotion.FaceRectangle.Left * ratio) + leftMargin);
@@ -139,7 +157,7 @@ namespace FelicidApp.View
                                 var t = new TextBlock();
                                 RectangleCanvas.Children.Add(t);
                                 t.Width = r.Width;
-                                t.FontSize = 20;
+                                t.FontSize = 6;
                                 t.Foreground = new SolidColorBrush(Windows.UI.Colors.Yellow);
                                 Canvas.SetLeft(t, (emotion.FaceRectangle.Left * ratio) + leftMargin);
                                 Canvas.SetTop(t, (emotion.FaceRectangle.Top * ratio) + topMargin + r.Height);
@@ -196,6 +214,22 @@ namespace FelicidApp.View
         private void log(string message)
         {
             System.Diagnostics.Debug.WriteLine(message);
+        }
+
+        private void Next_OnClick(object sender, RoutedEventArgs e)
+        {
+            NavigateToList(++_playingIndex);
+        }
+
+        private void Previous_OnClick(object sender, RoutedEventArgs e)
+        {
+            NavigateToList(--_playingIndex);
+        }
+
+        private void Change_OnClick(object sender, RoutedEventArgs e)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            rootFrame?.Navigate(typeof(Home));
         }
     }
 }

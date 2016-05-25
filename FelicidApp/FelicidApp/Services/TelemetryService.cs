@@ -11,47 +11,8 @@ using System.Threading.Tasks;
 
 namespace FelicidApp.Services
 {
-    public class TelemetryService
+    public partial class TelemetryService
     {
-        /// <summary>
-        /// A Configuration class, just fill the config.json file
-        /// with the form:
-        /// 
-        /// {
-        ///  "IotHubUri": "[hubname].azure-devices.net",
-        ///  "DeviceName": "[registeredname]",
-        ///  "DeviceKey": "[registeredkey]"
-        /// }
-        /// </summary>
-        public class Config
-        {
-            public string IotHubUri { get; set; }
-
-            static Config _config;
-            public static Config Default
-            {
-                get
-                {
-                    if (_config == null)
-                    {
-                        try {
-                            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json"));
-                        }
-                        catch
-                        {
-                            //default config by now
-                            _config = new Config
-                            {
-                                //Id,PrimaryKey,SecondaryKey,ConnectionString,ConnectionState,LastActivityTime,LastConnectionStateUpdatedTime,LastStateUpdatedTime,MessageCount,State,SuspensionReason
-                                IotHubUri = "FeliciHub.azure-devices.net"
-                            };
-                        }
-                    }
-                    return _config;
-                }
-            }
-        }
-
         public class MessageEventArgs : EventArgs
         {
             public string Message { get; set; }

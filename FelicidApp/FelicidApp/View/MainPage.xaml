@@ -50,8 +50,27 @@
             <Run Text="Status = "/><Run x:Name="ErrorMessage" Text="OK" FontWeight="Bold"/>
         </TextBlock>
 
-        <!-- Video -->
-        <CaptureElement Grid.Row="5" Grid.ColumnSpan="2" x:Name="ViewFinder"/>
-        <Canvas Grid.Row="5" x:Name="RectangleCanvas"/>    
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2">
+
+            <StackPanel>
+                <WebView x:Name="WebView" DefaultBackgroundColor="Black" HorizontalAlignment="Left" Height="400" Width="600"></WebView>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0">You want:</TextBlock>
+                    <TextBlock Margin="10,0" x:Name="MotionConfig"></TextBlock>
+                    <Button Click="Change_OnClick">[change]</Button>
+
+                    <Button Margin="100,0,0,0" Click="Previous_OnClick">Previous</Button>
+                    <TextBlock Margin="10,0">Playing:</TextBlock>
+                    <TextBlock Margin="10,0" x:Name="PlayInfo"></TextBlock>
+                    <Button Click="Next_OnClick">Next!</Button>
+                </StackPanel>
+            </StackPanel>
+            
+            <Grid Width="150" Height="100" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <!-- Video -->
+                <CaptureElement x:Name="ViewFinder"/>
+                <Canvas x:Name="RectangleCanvas"/>
+            </Grid>
+        </StackPanel>   
     </Grid>
 </base:BasePage>
