@@ -1,0 +1,23 @@
+﻿<ContentDialog
+    x:Class="FelicidApp.View.UserNameDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FelicidApp.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Enter your name"
+    PrimaryButtonText="OK"
+    PrimaryButtonClick="OnButtonClick">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock>User Name:</TextBlock>
+            <TextBox x:Name="UserName"/>
+            <TextBlock>Device Id:</TextBlock>
+            <TextBox Name="DeviceId"/>
+            <TextBlock>Device Key:</TextBlock>
+            <TextBox Name="DeviceKey"/>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

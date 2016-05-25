@@ -1,0 +1,57 @@
+﻿<base:BasePage
+    x:Class="FelicidApp.View.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FelicidApp.View"
+    xmlns:base="using:FelicidApp.View.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Progress -->
+        <ProgressBar Grid.Row="0" Grid.ColumnSpan="2" IsIndeterminate="True" Visibility="{Binding Busy, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+        <!-- Heart rate -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="12,0,0,0">
+            <Run Text="HeartRate "/><Run Text="{Binding HeartRate}" FontWeight="Bold"/><Run Text=" sent at "/><Run Text="{Binding HeartRateTimestamp}"/>
+        </TextBlock>
+
+        <!-- Emotion -->
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="12,0,0,0">
+            <Run Text="Emotion "/><Run Text="{Binding Emotion}" FontWeight="Bold"/><Run Text=" sent at "/><Run Text="{Binding EmotionTimestamp}"/>
+        </TextBlock>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,0,12,0" HorizontalAlignment="Right">
+            <Run Text="Average Emotion "/><Run Text="{Binding AverageEmotion}" FontWeight="Bold"/><Run Text=" received at "/><Run Text="{Binding AverageTimestamp}"/>
+        </TextBlock>
+        
+        <!-- User -->
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,0,12,0" HorizontalAlignment="Right">
+            <Run Text="User: "/><Run x:Name="UserName" FontWeight="Bold"/><Run Text=". Device Id: "/><Run x:Name="DeviceId" FontWeight="Bold"/>
+        </TextBlock>
+
+        <!-- Errors -->
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Margin="12,0,0,0">
+            <Run Text="Status = "/><Run x:Name="ErrorMessage" Text="OK" FontWeight="Bold"/>
+        </TextBlock>
+
+        <!-- Video -->
+        <CaptureElement Grid.Row="5" Grid.ColumnSpan="2" x:Name="ViewFinder"/>
+        <Canvas Grid.Row="5" x:Name="RectangleCanvas"/>    
+    </Grid>
+</base:BasePage>

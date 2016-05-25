@@ -1,0 +1,47 @@
+[
+  {
+    "Id": "juanma",
+    "Timestamp": "2016-02-05T15:48:57.7962473-08:00",
+    "HeartRate": 50
+  },
+  {
+    "Id": "juanma",
+    "Timestamp": "2016-02-05T15:47:58.9315154-08:00",
+    "Emotion": "Anger"
+  },
+  {
+    "Id": "juanma",
+    "Timestamp": "2016-02-05T15:48:58.9315154-08:00",
+    "Emotion": "Happiness"
+  },
+  {
+    "Id": "juanma",
+    "Timestamp": "2016-02-05T15:48:59.9315154-08:00",
+    "HeartRate": 60
+  },
+  {
+    "Id": "juanma",
+    "Timestamp": "2016-02-05T15:48:59.9315154-08:00",
+    "Emotion": "Happiness"
+  },
+  {
+    "Id": "alex",
+    "Timestamp": "2016-02-05T15:48:57.7962473-08:00",
+    "HeartRate": 50
+  },
+  {
+    "Id": "alex",
+    "Timestamp": "2016-02-05T15:49:03.9315154-08:00",
+    "Emotion": "Happiness"
+  },
+  {
+    "Id": "alex",
+    "Timestamp": "2016-02-05T15:50:57.7962473-08:00",
+    "HeartRate": 50
+  },
+  {
+    "Id": "alex",
+    "Timestamp": "2016-02-05T15:51:03.9315154-08:00",
+    "Emotion": "Anger"
+  }
+]
